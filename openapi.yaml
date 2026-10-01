@@ -1,8 +1,10 @@
 openapi: 3.0.3
 info:
   title: Acme Inc API
-  version: 1.2.0
-  description: Contract testing and OpenAPI tooling API for Acme Inc.
+  version: 1.5.0
+  description: |
+    Contract testing, mocking, and workspace API for Acme Inc.
+    Used as the Syndraft E2E OpenAPI fixture.
 servers:
   - url: https://api.acme.example.com/v1
 paths:
@@ -10,6 +12,11 @@ paths:
     get:
       operationId: listWorkspaces
       summary: List workspaces
+      tags: [workspaces]
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
       responses:
         "200":
           description: OK
@@ -17,6 +24,7 @@ paths:
             application/json:
               schema:
                 type: object
+                required: [workspaces]
                 properties:
                   workspaces:
                     type: array
@@ -25,6 +33,7 @@ paths:
     post:
       operationId: createWorkspace
       summary: Create a workspace
+      tags: [workspaces]
       requestBody:
         required: true
         content:
@@ -34,20 +43,102 @@ paths:
       responses:
         "201":
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+  /workspaces/{workspaceId}:
+    get:
+      operationId: getWorkspace
+      summary: Get a workspace
+      tags: [workspaces]
+      parameters:
+        - $ref: "#/components/parameters/WorkspaceId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workspace"
+        "404":
+          description: Not found
+  /contracts:
+    get:
+      operationId: listContracts
+      summary: List contracts in a workspace
+      tags: [contracts]
+      parameters:
+        - name: workspaceId
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
   /contracts/{contractId}/runs:
     post:
       operationId: runContract
       summary: Run a contract test suite
+      tags: [contracts]
       parameters:
         - name: contractId
           in: path
           required: true
-          schema:
-            type: string
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunContractRequest"
       responses:
         "202":
           description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContractRun"
+  /mocks:
+    post:
+      operationId: createMockServer
+      summary: Create a mock server from an OpenAPI spec
+      tags: [mocks]
+      "x-acme-test": true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMockServer"
+      responses:
+        "201":
+          description: Created
+  /webhooks/endpoints:
+    post:
+      operationId: createWebhookEndpoint
+      summary: Register a mock webhook endpoint
+      tags: [webhooks]
+      deprecated: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url]
+              properties:
+                url: { type: string, format: uri }
+      responses:
+        "201":
+          description: Created
 components:
+  parameters:
+    WorkspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      schema: { type: string }
   schemas:
     Workspace:
       type: object
@@ -55,8 +146,31 @@ components:
       properties:
         id: { type: string }
         name: { type: string }
+        role:
+          type: string
+          enum: [viewer, editor, admin]
     CreateWorkspace:
       type: object
       required: [name]
       properties:
+        name: { type: string, minLength: 1, maxLength: 64 }
+    CreateMockServer:
+      type: object
+      required: [specUrl]
+      properties:
+        specUrl: { type: string, format: uri }
         name: { type: string }
+    RunContractRequest:
+      type: object
+      required: [baseUrl]
+      properties:
+        baseUrl: { type: string, format: uri }
+        all: { type: boolean, default: false }
+    ContractRun:
+      type: object
+      required: [id, status]
+      properties:
+        id: { type: string }
+        status:
+          type: string
+          enum: [queued, running, passed, failed]

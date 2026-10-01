@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://docs.acme.example.com/</loc></url>
+  <url><loc>https://docs.acme.example.com/guides/getting-started</loc></url>
+  <url><loc>https://docs.acme.example.com/guides/import-openapi</loc></url>
+  <url><loc>https://docs.acme.example.com/guides/contract-testing</loc></url>
+  <url><loc>https://docs.acme.example.com/guides/workspaces</loc></url>
+  <url><loc>https://docs.acme.example.com/guides/webhooks</loc></url>
+  <url><loc>https://docs.acme.example.com/guides/rate-limits</loc></url>
+  <url><loc>https://docs.acme.example.com/api/authentication</loc></url>
+  <url><loc>https://docs.acme.example.com/api/cli-reference</loc></url>
+  <url><loc>https://docs.acme.example.com/blog/mock-servers-for-frontend</loc></url>
+</urlset>

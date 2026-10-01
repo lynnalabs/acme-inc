@@ -5,6 +5,12 @@
     <link>https://github.com/lynnalabs/acme-inc</link>
     <description>Product release notes</description>
     <item>
+      <title>1.5.0 — Workspace usage dashboard + rate-limit headers</title>
+      <link>https://github.com/lynnalabs/acme-inc/blob/main/docs/changelog/2026-10.md</link>
+      <pubDate>Wed, 01 Oct 2026 14:00:00 GMT</pubDate>
+      <description>Rate-limit headers on /v1 responses and workspace usage dashboard. Deprecated POST /webhooks/endpoints.</description>
+    </item>
+    <item>
       <title>1.4.0 — Mock webhooks + JUnit reports</title>
       <link>https://github.com/lynnalabs/acme-inc/blob/main/docs/changelog/2026-09.md</link>
       <pubDate>Mon, 22 Sep 2026 12:00:00 GMT</pubDate>

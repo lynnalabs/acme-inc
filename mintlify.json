@@ -1,0 +1,8 @@
+{
+  "name": "Acme Inc",
+  "logo": { "dark": "/logo/dark.svg", "light": "/logo/light.svg" },
+  "navigation": [
+    { "group": "Guides", "pages": ["docs/guides/getting-started", "docs/guides/contract-testing", "docs/guides/workspaces"] },
+    { "group": "API", "pages": ["docs/api/authentication", "docs/api/cli-reference"] }
+  ]
+}

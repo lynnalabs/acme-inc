@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Acme Inc Blog</title>
+    <link>https://docs.acme.example.com/blog</link>
+    <description>Engineering posts from Acme Inc</description>
+    <item>
+      <title>Mock servers that unblock frontend without waiting on backend</title>
+      <link>https://docs.acme.example.com/blog/mock-servers-for-frontend</link>
+      <pubDate>Mon, 15 Sep 2026 10:00:00 GMT</pubDate>
+      <description>How teams use Acme mocks to ship UI against a stable OpenAPI shape.</description>
+    </item>
+    <item>
+      <title>Contract tests in CI: status, schema, and required headers</title>
+      <link>https://docs.acme.example.com/blog/contract-tests-in-ci</link>
+      <pubDate>Wed, 24 Sep 2026 10:00:00 GMT</pubDate>
+      <description>Wire acme test into GitHub Actions against staging.</description>
+    </item>
+  </channel>
+</rss>
