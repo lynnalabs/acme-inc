@@ -17,3 +17,5 @@ Welcome. Acme Inc is a developer platform for **API mocking**, **contract testin
 ## Changelog
 
 - [September 2026](./changelog/2026-09.md)
+
+<!-- Last refreshed for Syndraft E2E -->
