@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: Acme Inc API
+  version: 1.2.0
+  description: Contract testing and OpenAPI tooling API for Acme Inc.
+servers:
+  - url: https://api.acme.example.com/v1
+paths:
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List workspaces
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Workspace"
+    post:
+      operationId: createWorkspace
+      summary: Create a workspace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWorkspace"
+      responses:
+        "201":
+          description: Created
+  /contracts/{contractId}/runs:
+    post:
+      operationId: runContract
+      summary: Run a contract test suite
+      parameters:
+        - name: contractId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "202":
+          description: Accepted
+components:
+  schemas:
+    Workspace:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: string }
+        name: { type: string }
+    CreateWorkspace:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
